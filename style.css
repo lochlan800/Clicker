@@ -630,3 +630,81 @@ body {
 .reward-spin-btn:hover {
   background: #3a7a4a;
 }
+
+/* Combo bar */
+.combo-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.combo-wrap[hidden] { display: none; }
+
+.combo-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.combo-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  transition: width 0.12s ease, background 0.3s ease;
+}
+
+.combo-label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  transition: color 0.3s ease;
+}
+
+/* Crit flash overlay */
+@keyframes flashFade {
+  0%   { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+
+@keyframes flashRainbow {
+  0%   { opacity: 0.45; background: #ff4444; }
+  25%  { background: #ffaa00; }
+  50%  { background: #44ff44; }
+  75%  { background: #4488ff; }
+  100% { opacity: 0;   background: #ff44ff; }
+}
+
+.crit-flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+  opacity: 0;
+}
+
+.crit-flash.flash-crit    { background: rgba(255, 235, 59, 0.3);  animation: flashFade 0.35s ease-out forwards; }
+.crit-flash.flash-golden  { background: rgba(255, 200,  0, 0.45); animation: flashFade 0.5s  ease-out forwards; }
+.crit-flash.flash-rainbow { animation: flashRainbow 0.9s ease-out forwards; }
+
+/* Crit float labels */
+.float-crit {
+  font-size: 1.6rem;
+  color: #ffeb3b;
+  text-shadow: 0 0 14px rgba(255, 235, 59, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.float-mega {
+  font-size: 2rem;
+  color: #ff8c00;
+  text-shadow: 0 0 18px rgba(255, 140, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.float-golden {
+  font-size: 2.4rem;
+  color: #ffd700;
+  text-shadow: 0 0 24px rgba(255, 215, 0, 1), 0 2px 8px rgba(0, 0, 0, 0.8);
+}

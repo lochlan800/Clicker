@@ -12,6 +12,12 @@ let pendingRewardAmount = 0;
 let boostActive = false;
 let boostEndTime = 0;
 let boostTimerRef = null;
+let combo = 0;
+let comboDecayTimer = null;
+let critFrenzyActive = false;
+let critFrenzyTimer  = null;
+let megaCritPending  = false;
+const comboMilestonesHit = new Set();
 
 const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
@@ -37,6 +43,10 @@ const rewardMoneyText = document.getElementById('rewardMoneyText');
 const rewardSpinBtn   = document.getElementById('rewardSpinBtn');
 const boostBanner     = document.getElementById('boostBanner');
 const boostCountdown  = document.getElementById('boostCountdown');
+const comboWrap  = document.getElementById('comboWrap');
+const comboFill  = document.getElementById('comboFill');
+const comboLabel = document.getElementById('comboLabel');
+const critFlash  = document.getElementById('critFlash');
 
 // Level 0 upgrade refs
 const buyBtn  = document.getElementById('buyBtn');  const ownedCount  = document.getElementById('ownedCount');
@@ -193,12 +203,48 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 });
 
 noteBtn.addEventListener('click', (e) => {
-  const earned = clickValue * (boostActive ? 5 : 1);
+  // Crit roll
+  let normalCritChance = critFrenzyActive ? 50 : 5;
+  if (combo >= 100) normalCritChance = 100;
+  else if (combo >= 50) normalCritChance += 5;
+  else if (combo >= 20) normalCritChance += 2;
+
+  let critMult = 1, critType = null;
+  const roll = Math.random() * 100;
+
+  if (megaCritPending) {
+    critMult = 200; critType = 'golden'; megaCritPending = false;
+  } else if (roll < 0.2) {
+    critMult = 200; critType = 'golden';
+  } else if (roll < 1.2) {
+    critMult = 100; critType = 'mega';
+  } else if (roll < 1.2 + normalCritChance) {
+    critMult = 10;  critType = 'crit';
+  }
+
+  if (critType) { combo += 4; triggerCritFrenzy(); }
+
+  // Combo increment + decay reset
+  combo++;
+  clearTimeout(comboDecayTimer);
+  comboDecayTimer = setTimeout(() => { combo = 0; comboMilestonesHit.clear(); updateComboUI(); }, 2000);
+
+  // Combo milestone rewards (once per streak)
+  if (combo >= 25  && !comboMilestonesHit.has(25))  { comboMilestonesHit.add(25);  total += 1000; }
+  if (combo >= 50  && !comboMilestonesHit.has(50))  { comboMilestonesHit.add(50);  spinWheel(true); }
+  if (combo >= 100 && !comboMilestonesHit.has(100)) { comboMilestonesHit.add(100); megaCritPending = true; screenFlash('flash-golden'); }
+  if (combo >= 200 && !comboMilestonesHit.has(200)) { comboMilestonesHit.add(200); screenFlash('flash-rainbow'); }
+
+  // Earned
+  const comboMult = combo >= 50 ? 5 : combo >= 25 ? 3 : combo >= 10 ? 2 : 1;
+  const boostMult = boostActive ? 5 : 1;
+  const earned = clickValue * critMult * comboMult * boostMult;
   total += earned;
   updateCounter();
-  spawnFloatLabel(e, earned);
+  spawnFloatLabel(e, earned, critType);
   triggerNotePress();
   updateBuyBtn();
+  updateComboUI();
 });
 
 // Level 0 buy handlers
@@ -391,10 +437,45 @@ function updateBuyBtn() {
   spinBtn.disabled  = total < spinCost || isSpinning;
 }
 
-function spawnFloatLabel(e, amount) {
+function triggerCritFrenzy() {
+  critFrenzyActive = true;
+  clearTimeout(critFrenzyTimer);
+  critFrenzyTimer = setTimeout(() => { critFrenzyActive = false; }, 5000);
+  screenFlash('flash-crit');
+}
+
+function screenFlash(cls) {
+  critFlash.className = 'crit-flash ' + cls;
+  critFlash.style.animation = 'none';
+  void critFlash.offsetWidth;
+  critFlash.style.animation = '';
+}
+
+function updateComboUI() {
+  if (combo === 0) { comboWrap.hidden = true; return; }
+  comboWrap.hidden = false;
+  const mult = combo >= 50 ? '×5' : combo >= 25 ? '×3' : combo >= 10 ? '×2' : '×1';
+  comboLabel.textContent = 'COMBO ' + combo + '   ' + mult;
+  comboFill.style.width = Math.min(combo / 200 * 100, 100) + '%';
+  const pct = Math.min(combo / 100, 1);
+  const h = Math.round(120 - pct * 120);
+  comboFill.style.background = `hsl(${h}, 90%, 55%)`;
+  comboLabel.style.color = `hsl(${h}, 90%, 70%)`;
+}
+
+function spawnFloatLabel(e, amount, critType = null) {
   const label = document.createElement('span');
-  label.className = 'float-label' + (boostActive ? ' float-label-boost' : '');
-  label.textContent = '+£' + amount;
+  let cls = 'float-label';
+  if (boostActive)           cls += ' float-label-boost';
+  if (critType === 'crit')   cls += ' float-crit';
+  if (critType === 'mega')   cls += ' float-mega';
+  if (critType === 'golden') cls += ' float-golden';
+  label.className = cls;
+  const prefix = critType === 'golden' ? '🌟 GOLDEN! +£'
+               : critType === 'mega'   ? '💥 MEGA! +£'
+               : critType === 'crit'   ? '⚡ CRIT! +£'
+               : '+£';
+  label.textContent = prefix + amount.toLocaleString('en-GB');
   const wrapRect = noteWrapper.getBoundingClientRect();
   const x = e.clientX - wrapRect.left;
   const y = e.clientY - wrapRect.top;
