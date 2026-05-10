@@ -708,3 +708,119 @@ body {
   color: #ffd700;
   text-shadow: 0 0 24px rgba(255, 215, 0, 1), 0 2px 8px rgba(0, 0, 0, 0.8);
 }
+
+/* Rules overlay */
+@keyframes rulesSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.rules-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  background: rgba(0, 0, 0, 0.93);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-overlay[hidden] { display: none; }
+
+.rules-container {
+  position: relative;
+  background: linear-gradient(160deg, #0d1f12, #1a3a22);
+  border: 2px solid #98fb98;
+  border-radius: 1.5rem;
+  padding: 3rem 2.5rem 2.5rem 2.5rem;
+  text-align: center;
+  max-width: 90vw;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  box-shadow: 0 0 80px rgba(152, 251, 152, 0.4);
+}
+
+.rules-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #98fb98;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.rules-close:hover {
+  color: #c8f0c8;
+}
+
+.rules-slide {
+  animation: rulesSlideIn 0.4s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  min-height: 120px;
+  justify-content: center;
+}
+
+.rules-slide.hidden {
+  display: none;
+}
+
+.rules-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #98fb98;
+  letter-spacing: 0.15em;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(152, 251, 152, 0.6);
+}
+
+.rules-text {
+  font-size: 1rem;
+  color: #c8f0c8;
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0;
+}
+
+.rules-dots {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.rules-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(152, 251, 152, 0.3);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+}
+
+.rules-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.rules-dot.active {
+  background: #98fb98;
+  border-color: #c8f0c8;
+}

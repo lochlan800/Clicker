@@ -245,6 +245,7 @@
     <nav class="tab-bar">
       <button class="tab-btn active" data-panel="panel-game">Game</button>
       <button class="tab-btn" data-panel="panel-shop">Shop</button>
+      <button class="tab-btn" id="rulesTabBtn">Rules</button>
     </nav>
 
   </div>
@@ -294,7 +295,52 @@
 
   <div class="crit-flash" id="critFlash"></div>
 
-  <script src="script.js?v=22"></script>
+  <div class="rules-overlay" id="rulesOverlay" hidden>
+    <div class="rules-container">
+      <button class="rules-close" id="rulesClose">&times;</button>
+
+      <div class="rules-slide" data-slide="0">
+        <h2 class="rules-title">Clicking</h2>
+        <p class="rules-text">Tap the £1 note to earn money. The more you click, the more you earn. Simple as that!</p>
+      </div>
+
+      <div class="rules-slide hidden" data-slide="1">
+        <h2 class="rules-title">Upgrades</h2>
+        <p class="rules-text">Visit the Shop tab to buy upgrades. Each upgrade increases your earnings per click or per second. Higher-tier upgrades cost more but pay off faster.</p>
+      </div>
+
+      <div class="rules-slide hidden" data-slide="2">
+        <h2 class="rules-title">Levels</h2>
+        <p class="rules-text">Progress through levels by reaching money targets. Each level unlocks new upgrades and rewards including bonus cash and a 5× earnings boost!</p>
+      </div>
+
+      <div class="rules-slide hidden" data-slide="3">
+        <h2 class="rules-title">Combo</h2>
+        <p class="rules-text">Click rapidly to build a combo meter! Higher combos multiply your earnings. The combo resets if you stop clicking for 2 seconds.</p>
+      </div>
+
+      <div class="rules-slide hidden" data-slide="4">
+        <h2 class="rules-title">Critical Hits</h2>
+        <p class="rules-text">Sometimes your clicks land critical hits (⚡ Crit, 💥 Mega, 🌟 Golden) for extra money. Crits trigger Frenzy mode where crits become very common!</p>
+      </div>
+
+      <div class="rules-slide hidden" data-slide="5">
+        <h2 class="rules-title">Wheel of Fortune</h2>
+        <p class="rules-text">Spin the Wheel of Fortune for random rewards or penalties. Unlocked at Level 1, you can spin for free at key combo milestones or pay £20,000 in the shop.</p>
+      </div>
+
+      <div class="rules-dots">
+        <button class="rules-dot active" data-slide="0"></button>
+        <button class="rules-dot" data-slide="1"></button>
+        <button class="rules-dot" data-slide="2"></button>
+        <button class="rules-dot" data-slide="3"></button>
+        <button class="rules-dot" data-slide="4"></button>
+        <button class="rules-dot" data-slide="5"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js?v=23"></script>
 
 </body>
 </html>

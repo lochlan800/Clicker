@@ -47,6 +47,13 @@ const comboWrap  = document.getElementById('comboWrap');
 const comboFill  = document.getElementById('comboFill');
 const comboLabel = document.getElementById('comboLabel');
 const critFlash  = document.getElementById('critFlash');
+const rulesOverlay = document.getElementById('rulesOverlay');
+const rulesClose   = document.getElementById('rulesClose');
+const rulesTabBtn  = document.getElementById('rulesTabBtn');
+const rulesDots    = document.querySelectorAll('.rules-dot');
+const rulesSlides  = document.querySelectorAll('.rules-slide');
+
+let currentRulesSlide = 0;
 
 // Level 0 upgrade refs
 const buyBtn  = document.getElementById('buyBtn');  const ownedCount  = document.getElementById('ownedCount');
@@ -195,11 +202,17 @@ wheelClose.addEventListener('click', () => { wheelOverlay.hidden = true; });
 
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
+    if (btn.id === 'rulesTabBtn') return;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
     btn.classList.add('active');
     document.getElementById(btn.dataset.panel).classList.remove('hidden');
   });
+});
+
+rulesTabBtn.addEventListener('click', () => {
+  showRulesSlide(0);
+  rulesOverlay.hidden = false;
 });
 
 noteBtn.addEventListener('click', (e) => {
@@ -490,3 +503,32 @@ function triggerNotePress() {
   noteBtn.classList.add('pressing');
   setTimeout(() => noteBtn.classList.remove('pressing'), 80);
 }
+
+function showRulesSlide(slideNum) {
+  currentRulesSlide = slideNum;
+  rulesSlides.forEach((slide, i) => {
+    if (i === slideNum) {
+      slide.classList.remove('hidden');
+    } else {
+      slide.classList.add('hidden');
+    }
+  });
+  rulesDots.forEach((dot, i) => {
+    if (i === slideNum) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+rulesClose.addEventListener('click', () => {
+  rulesOverlay.hidden = true;
+});
+
+rulesDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const slideNum = parseInt(dot.getAttribute('data-slide'));
+    showRulesSlide(slideNum);
+  });
+});
