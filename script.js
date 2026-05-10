@@ -205,9 +205,9 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 noteBtn.addEventListener('click', (e) => {
   // Crit roll
   let normalCritChance = critFrenzyActive ? 15 : 2;
-  if (combo >= 100) normalCritChance = Math.min(normalCritChance + 10, 25);
-  else if (combo >= 50) normalCritChance += 3;
-  else if (combo >= 20) normalCritChance += 1;
+  if (combo >= 200) normalCritChance = Math.min(normalCritChance + 10, 25);
+  else if (combo >= 100) normalCritChance += 3;
+  else if (combo >= 50) normalCritChance += 1;
 
   let critMult = 1, critType = null;
   const roll = Math.random() * 100;
@@ -222,7 +222,7 @@ noteBtn.addEventListener('click', (e) => {
     critMult = 3; critType = 'crit';
   }
 
-  if (critType) { combo += 4; triggerCritFrenzy(); }
+  if (critType) { triggerCritFrenzy(); }
 
   // Combo increment + decay reset
   combo++;
