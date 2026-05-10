@@ -185,6 +185,15 @@
         <button class="buy-btn" id="buyBtn8" disabled>£100,000</button>
       </div>
       </div><!-- end upgradesL1 -->
+
+      <div class="spin-divider"></div>
+      <div class="spin-row">
+        <div class="spin-row-info">
+          <p class="upgrade-name">Wheel of Fortune</p>
+          <p class="upgrade-desc">Spin for big rewards... or risks!</p>
+        </div>
+        <button class="buy-btn" id="spinBtn" disabled>£500</button>
+      </div>
     </div><!-- end panel-shop -->
 
     <nav class="tab-bar">
@@ -192,6 +201,17 @@
       <button class="tab-btn" data-panel="panel-shop">Shop</button>
     </nav>
 
+  </div>
+
+  <div class="wheel-overlay" id="wheelOverlay" hidden>
+    <div class="wheel-container">
+      <div class="wheel-pointer">▼</div>
+      <canvas id="wheelCanvas" width="480" height="480"></canvas>
+      <div class="wheel-result" id="wheelResult" hidden>
+        <p class="wheel-result-text" id="wheelResultText"></p>
+        <button class="ms-close" id="wheelClose">Continue</button>
+      </div>
+    </div>
   </div>
 
   <div class="milestone-overlay" id="milestoneOverlay" hidden>
@@ -205,7 +225,7 @@
     </div>
   </div>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 
 </body>
 </html>

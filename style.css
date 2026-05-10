@@ -379,3 +379,89 @@ body {
 .ms-close:hover {
   background: #3a7a4a;
 }
+
+/* Spin row in shop */
+.spin-divider {
+  width: 100%;
+  border-top: 1px solid rgba(144, 238, 144, 0.1);
+}
+
+.spin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(144, 238, 144, 0.12);
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
+}
+
+.spin-row-info .upgrade-name {
+  color: #98fb98;
+}
+
+/* Wheel overlay */
+.wheel-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wheel-overlay[hidden] {
+  display: none;
+}
+
+.wheel-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.wheel-pointer {
+  font-size: 2rem;
+  color: #98fb98;
+  text-shadow: 0 0 12px rgba(152, 251, 152, 0.8);
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1;
+}
+
+#wheelCanvas {
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(152, 251, 152, 0.2);
+  max-width: 85vw;
+  max-height: 85vw;
+  display: block;
+}
+
+.wheel-result {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.wheel-result[hidden] {
+  display: none;
+}
+
+.wheel-result-text {
+  font-size: 1.1rem;
+  color: #c8f0c8;
+  max-width: 300px;
+  line-height: 1.6;
+  text-align: center;
+}
