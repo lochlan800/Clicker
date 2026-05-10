@@ -13,6 +13,8 @@ const statMPC      = document.getElementById('statMPC');
 const statMPS      = document.getElementById('statMPS');
 const milestoneOverlay = document.getElementById('milestoneOverlay');
 const msClose          = document.getElementById('msClose');
+const progressFill     = document.getElementById('progressFill');
+const progressLabel    = document.getElementById('progressLabel');
 const upgradesL0   = document.getElementById('upgradesL0');
 const upgradesL1   = document.getElementById('upgradesL1');
 
@@ -120,6 +122,7 @@ function updateCounter() {
   counter.addEventListener('transitionend', () => {
     counter.classList.remove('bump');
   }, { once: true });
+  updateProgress();
   if (!milestoneTriggered && total >= 10000) {
     milestoneTriggered = true;
     upgradesL0.hidden = true;
@@ -130,6 +133,24 @@ function updateCounter() {
     milestone2Triggered = true;
     showMilestone('Level 2: Warehouse Wizard', 'Well done, you have made it to<br>Level 2: Warehouse Wizard!');
   }
+}
+
+function updateProgress() {
+  let pct, label;
+  if (total < 10000) {
+    pct   = total / 10000;
+    label = 'Level 1 — £' + Math.floor(total).toLocaleString('en-GB') + ' / £10,000';
+  } else if (total < 5000000) {
+    pct   = (total - 10000) / (5000000 - 10000);
+    label = 'Level 2 — £' + Math.floor(total).toLocaleString('en-GB') + ' / £5,000,000';
+  } else {
+    pct   = 1;
+    label = 'Level 2 complete!';
+  }
+  progressFill.style.width = Math.min(pct * 100, 100) + '%';
+  const glow = 4 + pct * 12;
+  progressFill.style.boxShadow = `0 0 ${glow}px rgba(152,251,152,${0.3 + pct * 0.5})`;
+  progressLabel.textContent = label;
 }
 
 function showMilestone(title, msg) {
