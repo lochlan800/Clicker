@@ -108,21 +108,21 @@ function spinWheel() {
   wheelResult.hidden = true;
   wheelOverlay.hidden = false;
 
-  const segIndex   = Math.floor(Math.random() * SEG_COUNT);
-  const targetAngle = -(segIndex * SEG_ANGLE + SEG_ANGLE / 2);
-  const totalSpin   = Math.PI * 2 * (6 + Math.random() * 4) + targetAngle;
-  const duration    = 4500;
-  const startTime   = performance.now();
+  const segIndex     = Math.floor(Math.random() * SEG_COUNT);
+  const fullSpins    = Math.floor(6 + Math.random() * 4); // integer full rotations
+  const finalRotation = 2 * Math.PI * fullSpins - (segIndex * SEG_ANGLE + SEG_ANGLE / 2);
+  const duration     = 4500;
+  const startTime    = performance.now();
 
   function frame(now) {
     const elapsed = now - startTime;
     const t = Math.min(elapsed / duration, 1);
     const eased = 1 - Math.pow(1 - t, 3);
-    drawWheel(totalSpin * eased);
+    drawWheel(finalRotation * eased);
     if (t < 1) {
       requestAnimationFrame(frame);
     } else {
-      drawWheel(totalSpin);
+      drawWheel(finalRotation);
       isSpinning = false;
       SEGMENTS[segIndex].effect();
       updateCounter();
