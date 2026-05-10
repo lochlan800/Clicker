@@ -253,3 +253,105 @@ body {
   opacity: 0.3;
   cursor: not-allowed;
 }
+
+/* Milestone overlay */
+.milestone-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.milestone-overlay[hidden] {
+  display: none;
+}
+
+@keyframes starFly {
+  from { transform: translate(-10vw, -10vh) rotate(-35deg); opacity: 1; }
+  to   { transform: translate(110vw, 110vh) rotate(-35deg); opacity: 0; }
+}
+
+.ms-star {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  font-size: 2.5rem;
+  animation: starFly 1.1s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes wizardPop {
+  0%   { opacity: 0; transform: scale(0); }
+  30%  { opacity: 1; transform: scale(1.2); }
+  55%  { transform: scale(1); }
+  80%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+.ms-wizard {
+  position: absolute;
+  font-size: 6rem;
+  opacity: 0;
+  animation: wizardPop 1.4s ease-in-out forwards;
+  animation-delay: 1.0s;
+  pointer-events: none;
+}
+
+@keyframes trophyReveal {
+  from { opacity: 0; transform: translateY(40px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.ms-trophy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  background: #0d1f12;
+  border: 1px solid rgba(152, 251, 152, 0.3);
+  border-radius: 1.25rem;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(100, 220, 100, 0.15);
+  opacity: 0;
+  animation: trophyReveal 0.6s ease-out forwards;
+  animation-delay: 2.3s;
+}
+
+.ms-trophy-icon {
+  font-size: 4rem;
+}
+
+.ms-trophy-title {
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #98fb98;
+}
+
+.ms-trophy-msg {
+  font-size: 0.95rem;
+  color: #c8f0c8;
+  line-height: 1.6;
+}
+
+.ms-close {
+  margin-top: 0.5rem;
+  background: #2d6a3f;
+  border: 1px solid #6abf7a;
+  border-radius: 0.5rem;
+  color: #c8f0c8;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  padding: 0.55rem 1.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ms-close:hover {
+  background: #3a7a4a;
+}

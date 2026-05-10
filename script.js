@@ -2,6 +2,7 @@ let total = 0;
 let clickValue = 1;
 let upgradeCount = 0;
 let perSecond = 0;
+let milestoneTriggered = false;
 
 const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
@@ -18,8 +19,12 @@ let upgradeCount3  = 0;
 const buyBtn4      = document.getElementById('buyBtn4');
 const ownedCount4  = document.getElementById('ownedCount4');
 let upgradeCount4  = 0;
-const statMPC      = document.getElementById('statMPC');
-const statMPS      = document.getElementById('statMPS');
+const statMPC          = document.getElementById('statMPC');
+const statMPS          = document.getElementById('statMPS');
+const milestoneOverlay = document.getElementById('milestoneOverlay');
+const msClose          = document.getElementById('msClose');
+
+msClose.addEventListener('click', () => { milestoneOverlay.hidden = true; });
 
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
@@ -97,6 +102,14 @@ function updateCounter() {
   counter.addEventListener('transitionend', () => {
     counter.classList.remove('bump');
   }, { once: true });
+  if (!milestoneTriggered && total >= 10000) {
+    milestoneTriggered = true;
+    triggerMilestone();
+  }
+}
+
+function triggerMilestone() {
+  milestoneOverlay.hidden = false;
 }
 
 function updatePerSecond() {
