@@ -6,7 +6,7 @@ let milestoneTriggered  = false;
 let milestone2Triggered = false;
 let level1Target = 10000;
 let level2Target = 5000000;
-let spinCost = 500;
+let spinCost = 5000;
 let isSpinning = false;
 
 const noteBtn      = document.getElementById('noteBtn');
