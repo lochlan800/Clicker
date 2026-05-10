@@ -10,10 +10,14 @@ const ownedCount  = document.getElementById('ownedCount');
 const buyBtn2     = document.getElementById('buyBtn2');
 const ownedCount2 = document.getElementById('ownedCount2');
 let upgradeCount2 = 0;
-const shopToggle = document.getElementById('shopToggle');
-const shopDrawer = document.getElementById('shopDrawer');
-
-shopToggle.addEventListener('click', () => shopDrawer.classList.toggle('open'));
+document.querySelectorAll('.tab-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.panel).classList.remove('hidden');
+  });
+});
 
 noteBtn.addEventListener('click', (e) => {
   total += clickValue;
