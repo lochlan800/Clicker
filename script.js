@@ -204,22 +204,22 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 
 noteBtn.addEventListener('click', (e) => {
   // Crit roll
-  let normalCritChance = critFrenzyActive ? 50 : 5;
-  if (combo >= 100) normalCritChance = 100;
-  else if (combo >= 50) normalCritChance += 5;
-  else if (combo >= 20) normalCritChance += 2;
+  let normalCritChance = critFrenzyActive ? 15 : 2;
+  if (combo >= 100) normalCritChance = Math.min(normalCritChance + 10, 25);
+  else if (combo >= 50) normalCritChance += 3;
+  else if (combo >= 20) normalCritChance += 1;
 
   let critMult = 1, critType = null;
   const roll = Math.random() * 100;
 
   if (megaCritPending) {
-    critMult = 200; critType = 'golden'; megaCritPending = false;
-  } else if (roll < 0.2) {
-    critMult = 200; critType = 'golden';
-  } else if (roll < 1.2) {
-    critMult = 100; critType = 'mega';
-  } else if (roll < 1.2 + normalCritChance) {
-    critMult = 10;  critType = 'crit';
+    critMult = 20; critType = 'golden'; megaCritPending = false;
+  } else if (roll < 0.1) {
+    critMult = 20; critType = 'golden';
+  } else if (roll < 0.6) {
+    critMult = 8; critType = 'mega';
+  } else if (roll < 0.6 + normalCritChance) {
+    critMult = 3; critType = 'crit';
   }
 
   if (critType) { combo += 4; triggerCritFrenzy(); }
