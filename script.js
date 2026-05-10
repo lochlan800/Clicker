@@ -55,17 +55,17 @@ function applyCut(value, multiplier) {
 
 // Wheel segments
 const SEGMENTS = [
-  { label: '+5% Money',      desc: '+5% added to your total money',              color: '#2a7a45', effect() { total = applyBoost(total, 1.05); } },
-  { label: '+5% All',        desc: '+5% to total money, per/sec & per/click',    color: '#359955', effect() { total = applyBoost(total, 1.05); perSecond = applyBoost(perSecond, 1.05); clickValue = Math.max(1, applyBoost(clickValue, 1.05)); } },
-  { label: '+10% Money',     desc: '+10% added to your total money',             color: '#40b865', effect() { total = applyBoost(total, 1.10); } },
+  { label: '+5% All',        desc: '+5% to total money, per/sec & per/click',    color: '#2a7a45', effect() { total = applyBoost(total, 1.05); perSecond = applyBoost(perSecond, 1.05); clickValue = Math.max(1, applyBoost(clickValue, 1.05)); } },
+  { label: '+8% All',        desc: '+8% to total money, per/sec & per/click',    color: '#359955', effect() { total = applyBoost(total, 1.08); perSecond = applyBoost(perSecond, 1.08); clickValue = Math.max(1, applyBoost(clickValue, 1.08)); } },
+  { label: '+10% All',       desc: '+10% to total money, per/sec & per/click',   color: '#40b865', effect() { total = applyBoost(total, 1.10); perSecond = applyBoost(perSecond, 1.10); clickValue = Math.max(1, applyBoost(clickValue, 1.10)); } },
   { label: 'L1 Target ↓', desc: 'Level 1 target reduced by 20%',           color: '#4ed475', effect() { level1Target = Math.floor(level1Target * 0.8); } },
   { label: 'All Targets ↓', desc: 'All level targets reduced by 20%',      color: '#5ee882', effect() { level1Target = Math.floor(level1Target * 0.8); level2Target = Math.floor(level2Target * 0.8); } },
   { label: '+£100',     desc: '£100 added to your total',              color: '#72f094', effect() { total += 100; } },
   { label: '+£1,000',   desc: '£1,000 added to your total',            color: '#88f4a6', effect() { total += 1000; } },
   { label: '+£10,000',  desc: '£10,000 added to your total',           color: '#a0f8bb', effect() { total += 10000; } },
-  { label: '-5% Money',      desc: '-5% taken from your total money',            color: '#8b2020', effect() { total = applyCut(total, 0.95); } },
-  { label: '-5% All',        desc: '-5% to total money, per/sec & per/click',   color: '#a82828', effect() { total = applyCut(total, 0.95); perSecond = applyCut(perSecond, 0.95); clickValue = Math.max(1, applyCut(clickValue, 0.95)); } },
-  { label: '-10% Money',     desc: '-10% taken from your total money',           color: '#c43030', effect() { total = applyCut(total, 0.90); } },
+  { label: '-5% All',        desc: '-5% to total money, per/sec & per/click',    color: '#8b2020', effect() { total = applyCut(total, 0.95); perSecond = applyCut(perSecond, 0.95); clickValue = Math.max(1, applyCut(clickValue, 0.95)); } },
+  { label: '-8% All',        desc: '-8% to total money, per/sec & per/click',    color: '#a82828', effect() { total = applyCut(total, 0.92); perSecond = applyCut(perSecond, 0.92); clickValue = Math.max(1, applyCut(clickValue, 0.92)); } },
+  { label: '-10% All',       desc: '-10% to total money, per/sec & per/click',   color: '#c43030', effect() { total = applyCut(total, 0.90); perSecond = applyCut(perSecond, 0.90); clickValue = Math.max(1, applyCut(clickValue, 0.90)); } },
   { label: '-£100',     desc: '£100 deducted from your total',         color: '#e03838', effect() { total = Math.max(0, total - 100); } },
   { label: '-£1,000',   desc: '£1,000 deducted from your total',       color: '#f44040', effect() { total = Math.max(0, total - 1000); } },
 ];
