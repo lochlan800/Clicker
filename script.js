@@ -8,6 +8,10 @@ let level1Target = 10000;
 let level2Target = 5000000;
 let spinCost = 5000;
 let isSpinning = false;
+let pendingRewardAmount = 0;
+let boostActive = false;
+let boostEndTime = 0;
+let boostTimerRef = null;
 
 const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
@@ -28,6 +32,11 @@ const wheelResult  = document.getElementById('wheelResult');
 const wheelResultText = document.getElementById('wheelResultText');
 const wheelClose   = document.getElementById('wheelClose');
 const ctx          = wheelCanvas.getContext('2d');
+const rewardOverlay   = document.getElementById('rewardOverlay');
+const rewardMoneyText = document.getElementById('rewardMoneyText');
+const rewardSpinBtn   = document.getElementById('rewardSpinBtn');
+const boostBanner     = document.getElementById('boostBanner');
+const boostCountdown  = document.getElementById('boostCountdown');
 
 // Level 0 upgrade refs
 const buyBtn  = document.getElementById('buyBtn');  const ownedCount  = document.getElementById('ownedCount');
@@ -111,11 +120,10 @@ function drawWheel(rotation) {
 }
 
 // Spin the wheel
-function spinWheel() {
-  if (isSpinning || total < spinCost) return;
-  total -= spinCost;
-  updateCounter();
-  updateBuyBtn();
+function spinWheel(free = false) {
+  if (isSpinning) return;
+  if (!free && total < spinCost) return;
+  if (!free) { total -= spinCost; updateCounter(); updateBuyBtn(); }
   isSpinning = true;
   wheelResult.hidden = true;
   wheelOverlay.hidden = false;
@@ -152,7 +160,19 @@ function spinWheel() {
 drawWheel(0);
 
 // Event listeners
-msClose.addEventListener('click', () => { milestoneOverlay.hidden = true; });
+msClose.addEventListener('click', () => {
+  milestoneOverlay.hidden = true;
+  if (pendingRewardAmount > 0) {
+    const amt = pendingRewardAmount;
+    pendingRewardAmount = 0;
+    triggerLevelReward(amt);
+  }
+});
+
+rewardSpinBtn.addEventListener('click', () => {
+  rewardOverlay.hidden = true;
+  spinWheel(true);
+});
 spinBtn.addEventListener('click', spinWheel);
 wheelClose.addEventListener('click', () => { wheelOverlay.hidden = true; });
 
@@ -166,9 +186,10 @@ document.querySelectorAll('.tab-btn').forEach((btn) => {
 });
 
 noteBtn.addEventListener('click', (e) => {
-  total += clickValue;
+  const earned = clickValue * (boostActive ? 5 : 1);
+  total += earned;
   updateCounter();
-  spawnFloatLabel(e);
+  spawnFloatLabel(e, earned);
   triggerNotePress();
   updateBuyBtn();
 });
@@ -227,7 +248,7 @@ buyBtn8.addEventListener('click', () => {
 
 setInterval(() => {
   if (perSecond === 0) return;
-  total += perSecond;
+  total += perSecond * (boostActive ? 5 : 1);
   updateCounter();
   updateBuyBtn();
 }, 1000);
@@ -247,10 +268,12 @@ function updateCounter() {
     upgradesL1.hidden = false;
     spinCost = 50000;
     spinBtn.textContent = '£50,000';
+    pendingRewardAmount = Math.floor(level2Target / 4);
     showMilestone('Level 1: Market Master', 'Well done, you have made it to<br>Level 1: Market Master!');
   }
   if (!milestone2Triggered && total >= level2Target) {
     milestone2Triggered = true;
+    pendingRewardAmount = Math.floor(level2Target / 4);
     showMilestone('Level 2: Warehouse Wizard', 'Well done, you have made it to<br>Level 2: Warehouse Wizard!');
   }
 }
@@ -271,6 +294,31 @@ function updateProgress() {
   const glow = 4 + pct * 12;
   progressFill.style.boxShadow = `0 0 ${glow}px rgba(152,251,152,${0.3 + pct * 0.5})`;
   progressLabel.textContent = label;
+}
+
+function triggerLevelReward(moneyReward) {
+  total += moneyReward;
+  updateCounter();
+  updateBuyBtn();
+
+  boostActive = true;
+  boostEndTime = Date.now() + 30000;
+  boostBanner.hidden = false;
+  boostCountdown.textContent = '30';
+  clearInterval(boostTimerRef);
+  boostTimerRef = setInterval(() => {
+    const remaining = Math.ceil((boostEndTime - Date.now()) / 1000);
+    if (remaining <= 0) {
+      boostActive = false;
+      boostBanner.hidden = true;
+      clearInterval(boostTimerRef);
+    } else {
+      boostCountdown.textContent = remaining;
+    }
+  }, 250);
+
+  rewardMoneyText.textContent = '£' + moneyReward.toLocaleString('en-GB') + ' added to your total!';
+  rewardOverlay.hidden = false;
 }
 
 function showMilestone(title, msg) {
@@ -306,10 +354,10 @@ function updateBuyBtn() {
   spinBtn.disabled = total < spinCost || isSpinning;
 }
 
-function spawnFloatLabel(e) {
+function spawnFloatLabel(e, amount) {
   const label = document.createElement('span');
-  label.className = 'float-label';
-  label.textContent = '+£' + clickValue;
+  label.className = 'float-label' + (boostActive ? ' float-label-boost' : '');
+  label.textContent = '+£' + amount;
   const wrapRect = noteWrapper.getBoundingClientRect();
   const x = e.clientX - wrapRect.left;
   const y = e.clientY - wrapRect.top;

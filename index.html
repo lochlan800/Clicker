@@ -14,6 +14,10 @@
     </div>
     <p class="level-bar-label" id="progressLabel">Level 1 — £0 / £10,000</p>
 
+    <div class="boost-banner" id="boostBanner" hidden>
+      ⚡ 5× BOOST ACTIVE — <span id="boostCountdown">30</span>s remaining!
+    </div>
+
     <div class="tab-panel" id="panel-game">
 
     <header class="counter-section">
@@ -203,6 +207,27 @@
 
   </div>
 
+  <div class="reward-overlay" id="rewardOverlay" hidden>
+    <div class="reward-box">
+      <div class="reward-icon">🎁</div>
+      <h2 class="reward-title">LEVEL COMPLETE!</h2>
+      <p class="reward-subtitle">Here are your rewards:</p>
+      <div class="reward-item">
+        <span class="reward-item-icon">💰</span>
+        <span id="rewardMoneyText">+£1,250,000 added!</span>
+      </div>
+      <div class="reward-item">
+        <span class="reward-item-icon">⚡</span>
+        <span>5× Boost on all earnings for 30 seconds!</span>
+      </div>
+      <div class="reward-item">
+        <span class="reward-item-icon">🎡</span>
+        <span>A free spin of the Wheel of Fortune!</span>
+      </div>
+      <button class="reward-spin-btn" id="rewardSpinBtn">🎡 SPIN THE WHEEL FOR FREE!</button>
+    </div>
+  </div>
+
   <div class="wheel-overlay" id="wheelOverlay" hidden>
     <div class="wheel-container">
       <div class="wheel-pointer">▼</div>
@@ -225,7 +250,7 @@
     </div>
   </div>
 
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=13"></script>
 
 </body>
 </html>
