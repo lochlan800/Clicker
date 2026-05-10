@@ -8,21 +8,24 @@ const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
 const counter      = document.getElementById('counter');
 const noteWrapper  = noteBtn.closest('.note-wrapper');
-const buyBtn       = document.getElementById('buyBtn');
-const ownedCount   = document.getElementById('ownedCount');
-const buyBtn2      = document.getElementById('buyBtn2');
-const ownedCount2  = document.getElementById('ownedCount2');
-let upgradeCount2  = 0;
-const buyBtn3      = document.getElementById('buyBtn3');
-const ownedCount3  = document.getElementById('ownedCount3');
-let upgradeCount3  = 0;
-const buyBtn4      = document.getElementById('buyBtn4');
-const ownedCount4  = document.getElementById('ownedCount4');
-let upgradeCount4  = 0;
-const statMPC          = document.getElementById('statMPC');
-const statMPS          = document.getElementById('statMPS');
+const statMPC      = document.getElementById('statMPC');
+const statMPS      = document.getElementById('statMPS');
 const milestoneOverlay = document.getElementById('milestoneOverlay');
 const msClose          = document.getElementById('msClose');
+const upgradesL0   = document.getElementById('upgradesL0');
+const upgradesL1   = document.getElementById('upgradesL1');
+
+// Level 0 upgrade refs
+const buyBtn  = document.getElementById('buyBtn');  const ownedCount  = document.getElementById('ownedCount');
+const buyBtn2 = document.getElementById('buyBtn2'); const ownedCount2 = document.getElementById('ownedCount2'); let upgradeCount2 = 0;
+const buyBtn3 = document.getElementById('buyBtn3'); const ownedCount3 = document.getElementById('ownedCount3'); let upgradeCount3 = 0;
+const buyBtn4 = document.getElementById('buyBtn4'); const ownedCount4 = document.getElementById('ownedCount4'); let upgradeCount4 = 0;
+
+// Level 1 upgrade refs
+const buyBtn5 = document.getElementById('buyBtn5'); const ownedCount5 = document.getElementById('ownedCount5'); let upgradeCount5 = 0;
+const buyBtn6 = document.getElementById('buyBtn6'); const ownedCount6 = document.getElementById('ownedCount6'); let upgradeCount6 = 0;
+const buyBtn7 = document.getElementById('buyBtn7'); const ownedCount7 = document.getElementById('ownedCount7'); let upgradeCount7 = 0;
+const buyBtn8 = document.getElementById('buyBtn8'); const ownedCount8 = document.getElementById('ownedCount8'); let upgradeCount8 = 0;
 
 msClose.addEventListener('click', () => { milestoneOverlay.hidden = true; });
 
@@ -43,48 +46,62 @@ noteBtn.addEventListener('click', (e) => {
   updateBuyBtn();
 });
 
-buyBtn4.addEventListener('click', () => {
-  if (total < 100) return;
-  total -= 100;
-  perSecond += 1;
-  upgradeCount4 += 1;
-  ownedCount4.textContent = 'Owned: ' + upgradeCount4;
-  updateCounter();
-  updatePerSecond();
-  updateBuyBtn();
-});
-
+// Level 0 buy handlers
 buyBtn.addEventListener('click', () => {
   if (total < 25) return;
-  total -= 25;
-  clickValue += 1;
-  upgradeCount += 1;
+  total -= 25; clickValue += 1; upgradeCount++;
   ownedCount.textContent = 'Owned: ' + upgradeCount;
-  updateCounter();
-  updateShopStats();
-  updateBuyBtn();
+  updateCounter(); updateShopStats(); updateBuyBtn();
 });
 
 buyBtn2.addEventListener('click', () => {
   if (total < 250) return;
-  total -= 250;
-  clickValue += 10;
-  upgradeCount2 += 1;
+  total -= 250; clickValue += 10; upgradeCount2++;
   ownedCount2.textContent = 'Owned: ' + upgradeCount2;
-  updateCounter();
-  updateShopStats();
-  updateBuyBtn();
+  updateCounter(); updateShopStats(); updateBuyBtn();
 });
 
 buyBtn3.addEventListener('click', () => {
   if (total < 5000) return;
-  total -= 5000;
-  clickValue += 50;
-  upgradeCount3 += 1;
+  total -= 5000; clickValue += 50; upgradeCount3++;
   ownedCount3.textContent = 'Owned: ' + upgradeCount3;
-  updateCounter();
-  updateShopStats();
-  updateBuyBtn();
+  updateCounter(); updateShopStats(); updateBuyBtn();
+});
+
+buyBtn4.addEventListener('click', () => {
+  if (total < 100) return;
+  total -= 100; perSecond += 1; upgradeCount4++;
+  ownedCount4.textContent = 'Owned: ' + upgradeCount4;
+  updateCounter(); updatePerSecond(); updateBuyBtn();
+});
+
+// Level 1 buy handlers
+buyBtn5.addEventListener('click', () => {
+  if (total < 1500) return;
+  total -= 1500; perSecond += 10; upgradeCount5++;
+  ownedCount5.textContent = 'Owned: ' + upgradeCount5;
+  updateCounter(); updatePerSecond(); updateBuyBtn();
+});
+
+buyBtn6.addEventListener('click', () => {
+  if (total < 5000) return;
+  total -= 5000; clickValue += 150; upgradeCount6++;
+  ownedCount6.textContent = 'Owned: ' + upgradeCount6;
+  updateCounter(); updateShopStats(); updateBuyBtn();
+});
+
+buyBtn7.addEventListener('click', () => {
+  if (total < 20000) return;
+  total -= 20000; perSecond += 75; upgradeCount7++;
+  ownedCount7.textContent = 'Owned: ' + upgradeCount7;
+  updateCounter(); updatePerSecond(); updateBuyBtn();
+});
+
+buyBtn8.addEventListener('click', () => {
+  if (total < 100000) return;
+  total -= 100000; clickValue += 1000; upgradeCount8++;
+  ownedCount8.textContent = 'Owned: ' + upgradeCount8;
+  updateCounter(); updateShopStats(); updateBuyBtn();
 });
 
 setInterval(() => {
@@ -110,6 +127,8 @@ function updateCounter() {
 
 function triggerMilestone() {
   milestoneOverlay.hidden = false;
+  upgradesL0.hidden = true;
+  upgradesL1.hidden = false;
 }
 
 function updatePerSecond() {
@@ -126,6 +145,10 @@ function updateBuyBtn() {
   buyBtn2.disabled = total < 250;
   buyBtn3.disabled = total < 5000;
   buyBtn4.disabled = total < 100;
+  buyBtn5.disabled = total < 1500;
+  buyBtn6.disabled = total < 5000;
+  buyBtn7.disabled = total < 20000;
+  buyBtn8.disabled = total < 100000;
 }
 
 function spawnFloatLabel(e) {
