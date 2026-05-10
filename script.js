@@ -10,6 +10,9 @@ const ownedCount  = document.getElementById('ownedCount');
 const buyBtn2     = document.getElementById('buyBtn2');
 const ownedCount2 = document.getElementById('ownedCount2');
 let upgradeCount2 = 0;
+const buyBtn3     = document.getElementById('buyBtn3');
+const ownedCount3 = document.getElementById('ownedCount3');
+let upgradeCount3 = 0;
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -47,6 +50,16 @@ buyBtn2.addEventListener('click', () => {
   updateBuyBtn();
 });
 
+buyBtn3.addEventListener('click', () => {
+  if (total < 5000) return;
+  total -= 5000;
+  clickValue += 50;
+  upgradeCount3 += 1;
+  ownedCount3.textContent = 'Owned: ' + upgradeCount3;
+  updateCounter();
+  updateBuyBtn();
+});
+
 function updateCounter() {
   counter.textContent = '£' + total.toLocaleString('en-GB');
   counter.classList.remove('bump');
@@ -60,6 +73,7 @@ function updateCounter() {
 function updateBuyBtn() {
   buyBtn.disabled  = total < 25;
   buyBtn2.disabled = total < 250;
+  buyBtn3.disabled = total < 5000;
 }
 
 function spawnFloatLabel(e) {
