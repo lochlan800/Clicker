@@ -231,7 +231,7 @@ noteBtn.addEventListener('click', (e) => {
 
   // Combo milestone rewards (once per streak)
   if (combo >= 25  && !comboMilestonesHit.has(25))  { comboMilestonesHit.add(25);  total += 1000; }
-  if (combo >= 50  && !comboMilestonesHit.has(50))  { comboMilestonesHit.add(50);  spinWheel(true); }
+  if (combo >= 50  && !comboMilestonesHit.has(50))  { comboMilestonesHit.add(50);  total += 5000; }
   if (combo >= 100 && !comboMilestonesHit.has(100)) { comboMilestonesHit.add(100); megaCritPending = true; screenFlash('flash-golden'); }
   if (combo >= 200 && !comboMilestonesHit.has(200)) { comboMilestonesHit.add(200); screenFlash('flash-rainbow'); }
 
