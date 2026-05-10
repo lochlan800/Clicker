@@ -50,6 +50,13 @@ const buyBtn6 = document.getElementById('buyBtn6'); const ownedCount6 = document
 const buyBtn7 = document.getElementById('buyBtn7'); const ownedCount7 = document.getElementById('ownedCount7'); let upgradeCount7 = 0;
 const buyBtn8 = document.getElementById('buyBtn8'); const ownedCount8 = document.getElementById('ownedCount8'); let upgradeCount8 = 0;
 
+// Level 2 upgrade refs
+const upgradesL2 = document.getElementById('upgradesL2');
+const buyBtn9  = document.getElementById('buyBtn9');  const ownedCount9  = document.getElementById('ownedCount9');  let upgradeCount9  = 0;
+const buyBtn10 = document.getElementById('buyBtn10'); const ownedCount10 = document.getElementById('ownedCount10'); let upgradeCount10 = 0;
+const buyBtn11 = document.getElementById('buyBtn11'); const ownedCount11 = document.getElementById('ownedCount11'); let upgradeCount11 = 0;
+const buyBtn12 = document.getElementById('buyBtn12'); const ownedCount12 = document.getElementById('ownedCount12'); let upgradeCount12 = 0;
+
 // Wheel effect helpers — guarantee percentage outcomes always change the value
 function applyBoost(value, multiplier) {
   if (value <= 0) return value;
@@ -246,6 +253,32 @@ buyBtn8.addEventListener('click', () => {
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 
+// Level 2 buy handlers
+buyBtn9.addEventListener('click', () => {
+  if (total < 500000) return;
+  total -= 500000; perSecond += 500; upgradeCount9++;
+  ownedCount9.textContent = 'Owned: ' + upgradeCount9;
+  updateCounter(); updatePerSecond(); updateBuyBtn();
+});
+buyBtn10.addEventListener('click', () => {
+  if (total < 2000000) return;
+  total -= 2000000; clickValue += 5000; upgradeCount10++;
+  ownedCount10.textContent = 'Owned: ' + upgradeCount10;
+  updateCounter(); updateShopStats(); updateBuyBtn();
+});
+buyBtn11.addEventListener('click', () => {
+  if (total < 10000000) return;
+  total -= 10000000; perSecond += 5000; upgradeCount11++;
+  ownedCount11.textContent = 'Owned: ' + upgradeCount11;
+  updateCounter(); updatePerSecond(); updateBuyBtn();
+});
+buyBtn12.addEventListener('click', () => {
+  if (total < 50000000) return;
+  total -= 50000000; clickValue += 50000; upgradeCount12++;
+  ownedCount12.textContent = 'Owned: ' + upgradeCount12;
+  updateCounter(); updateShopStats(); updateBuyBtn();
+});
+
 setInterval(() => {
   if (perSecond === 0) return;
   total += perSecond * (boostActive ? 5 : 1);
@@ -264,7 +297,6 @@ function updateCounter() {
   updateProgress();
   if (!milestoneTriggered && total >= level1Target) {
     milestoneTriggered = true;
-    upgradesL0.hidden = true;
     upgradesL1.hidden = false;
     spinCost = 50000;
     spinBtn.textContent = '£50,000';
@@ -273,6 +305,7 @@ function updateCounter() {
   }
   if (!milestone2Triggered && total >= level2Target) {
     milestone2Triggered = true;
+    upgradesL2.hidden = false;
     pendingRewardAmount = Math.floor(level2Target / 4);
     showMilestone('Level 2: Warehouse Wizard', 'Well done, you have made it to<br>Level 2: Warehouse Wizard!');
   }
@@ -350,8 +383,12 @@ function updateBuyBtn() {
   buyBtn5.disabled = total < 1500;
   buyBtn6.disabled = total < 5000;
   buyBtn7.disabled = total < 20000;
-  buyBtn8.disabled = total < 100000;
-  spinBtn.disabled = total < spinCost || isSpinning;
+  buyBtn8.disabled  = total < 100000;
+  buyBtn9.disabled  = total < 500000;
+  buyBtn10.disabled = total < 2000000;
+  buyBtn11.disabled = total < 10000000;
+  buyBtn12.disabled = total < 50000000;
+  spinBtn.disabled  = total < spinCost || isSpinning;
 }
 
 function spawnFloatLabel(e, amount) {
