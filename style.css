@@ -53,6 +53,13 @@ body {
   margin-bottom: 0.25rem;
 }
 
+.per-second {
+  font-size: 0.9rem;
+  color: rgba(144, 238, 144, 0.5);
+  margin-top: 0.4rem;
+  letter-spacing: 0.05em;
+}
+
 .counter-value {
   font-size: 3.5rem;
   font-weight: bold;

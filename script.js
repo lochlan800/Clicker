@@ -1,8 +1,10 @@
 let total = 0;
 let clickValue = 1;
 let upgradeCount = 0;
+let perSecond = 0;
 
-const noteBtn    = document.getElementById('noteBtn');
+const noteBtn      = document.getElementById('noteBtn');
+const perSecondEl  = document.getElementById('perSecond');
 const counter    = document.getElementById('counter');
 const noteWrapper = noteBtn.closest('.note-wrapper');
 const buyBtn      = document.getElementById('buyBtn');
@@ -68,6 +70,10 @@ function updateCounter() {
   counter.addEventListener('transitionend', () => {
     counter.classList.remove('bump');
   }, { once: true });
+}
+
+function updatePerSecond() {
+  perSecondEl.textContent = '£' + perSecond.toLocaleString('en-GB') + ' / sec';
 }
 
 function updateBuyBtn() {
