@@ -4,9 +4,9 @@ let upgradeCount = 0;
 let perSecond = 0;
 let milestoneTriggered  = false;
 let milestone2Triggered = false;
-let level1Target = 50000;
-let level2Target = 5000000;
-let spinCost = 5000;
+let level1Target = 750000;
+let level2Target = 100000000;
+let spinCost = 20000;
 let isSpinning = false;
 let pendingRewardAmount = 0;
 let boostActive = false;
@@ -250,51 +250,51 @@ noteBtn.addEventListener('click', (e) => {
 // Level 0 buy handlers
 buyBtn.addEventListener('click', () => {
   if (total < 25) return;
-  total -= 25; clickValue += 1; upgradeCount++;
+  total -= 100; clickValue += 1; upgradeCount++;
   ownedCount.textContent = 'Owned: ' + upgradeCount;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 buyBtn2.addEventListener('click', () => {
-  if (total < 250) return;
-  total -= 250; clickValue += 10; upgradeCount2++;
+  if (total < 1000) return;
+  total -= 1000; clickValue += 10; upgradeCount2++;
   ownedCount2.textContent = 'Owned: ' + upgradeCount2;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 buyBtn3.addEventListener('click', () => {
-  if (total < 5000) return;
-  total -= 5000; clickValue += 50; upgradeCount3++;
+  if (total < 20000) return;
+  total -= 20000; clickValue += 50; upgradeCount3++;
   ownedCount3.textContent = 'Owned: ' + upgradeCount3;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 buyBtn4.addEventListener('click', () => {
-  if (total < 100) return;
-  total -= 100; perSecond += 1; upgradeCount4++;
+  if (total < 400) return;
+  total -= 400; perSecond += 1; upgradeCount4++;
   ownedCount4.textContent = 'Owned: ' + upgradeCount4;
   updateCounter(); updatePerSecond(); updateBuyBtn();
 });
 
 // Level 1 buy handlers
 buyBtn5.addEventListener('click', () => {
-  if (total < 1500) return;
-  total -= 1500; perSecond += 10; upgradeCount5++;
+  if (total < 8000) return;
+  total -= 8000; perSecond += 10; upgradeCount5++;
   ownedCount5.textContent = 'Owned: ' + upgradeCount5;
   updateCounter(); updatePerSecond(); updateBuyBtn();
 });
 buyBtn6.addEventListener('click', () => {
-  if (total < 5000) return;
-  total -= 5000; clickValue += 150; upgradeCount6++;
+  if (total < 30000) return;
+  total -= 30000; clickValue += 150; upgradeCount6++;
   ownedCount6.textContent = 'Owned: ' + upgradeCount6;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 buyBtn7.addEventListener('click', () => {
-  if (total < 20000) return;
-  total -= 20000; perSecond += 75; upgradeCount7++;
+  if (total < 100000) return;
+  total -= 100000; perSecond += 75; upgradeCount7++;
   ownedCount7.textContent = 'Owned: ' + upgradeCount7;
   updateCounter(); updatePerSecond(); updateBuyBtn();
 });
 buyBtn8.addEventListener('click', () => {
-  if (total < 100000) return;
-  total -= 100000; clickValue += 1000; upgradeCount8++;
+  if (total < 500000) return;
+  total -= 500000; clickValue += 1000; upgradeCount8++;
   ownedCount8.textContent = 'Owned: ' + upgradeCount8;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
@@ -344,8 +344,8 @@ function updateCounter() {
   if (!milestoneTriggered && total >= level1Target) {
     milestoneTriggered = true;
     upgradesL1.hidden = false;
-    spinCost = 50000;
-    spinBtn.textContent = '£50,000';
+    spinCost = 500000;
+    spinBtn.textContent = '£500,000';
     pendingRewardAmount = Math.floor(level2Target / 4);
     showMilestone('Level 1: Market Master', 'Well done, you have made it to<br>Level 1: Market Master!');
   }
@@ -422,14 +422,14 @@ function updateShopStats() {
 }
 
 function updateBuyBtn() {
-  buyBtn.disabled  = total < 25;
-  buyBtn2.disabled = total < 250;
-  buyBtn3.disabled = total < 5000;
-  buyBtn4.disabled = total < 100;
-  buyBtn5.disabled = total < 1500;
-  buyBtn6.disabled = total < 5000;
-  buyBtn7.disabled = total < 20000;
-  buyBtn8.disabled  = total < 100000;
+  buyBtn.disabled  = total < 100;
+  buyBtn2.disabled = total < 1000;
+  buyBtn3.disabled = total < 20000;
+  buyBtn4.disabled = total < 400;
+  buyBtn5.disabled = total < 8000;
+  buyBtn6.disabled = total < 30000;
+  buyBtn7.disabled = total < 100000;
+  buyBtn8.disabled  = total < 500000;
   buyBtn9.disabled  = total < 500000;
   buyBtn10.disabled = total < 2000000;
   buyBtn11.disabled = total < 10000000;
