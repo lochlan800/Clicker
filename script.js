@@ -50,6 +50,8 @@ const critFlash  = document.getElementById('critFlash');
 const rulesOverlay = document.getElementById('rulesOverlay');
 const rulesClose   = document.getElementById('rulesClose');
 const rulesTabBtn  = document.getElementById('rulesTabBtn');
+const rulesPrev    = document.getElementById('rulesPrev');
+const rulesNext    = document.getElementById('rulesNext');
 const rulesDots    = document.querySelectorAll('.rules-dot');
 const rulesSlides  = document.querySelectorAll('.rules-slide');
 
@@ -531,4 +533,14 @@ rulesDots.forEach(dot => {
     const slideNum = parseInt(dot.getAttribute('data-slide'));
     showRulesSlide(slideNum);
   });
+});
+
+rulesPrev.addEventListener('click', () => {
+  const newSlide = currentRulesSlide === 0 ? 5 : currentRulesSlide - 1;
+  showRulesSlide(newSlide);
+});
+
+rulesNext.addEventListener('click', () => {
+  const newSlide = currentRulesSlide === 5 ? 0 : currentRulesSlide + 1;
+  showRulesSlide(newSlide);
 });
