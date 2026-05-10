@@ -5,8 +5,11 @@ let upgradeCount = 0;
 const noteBtn    = document.getElementById('noteBtn');
 const counter    = document.getElementById('counter');
 const noteWrapper = noteBtn.closest('.note-wrapper');
-const buyBtn     = document.getElementById('buyBtn');
-const ownedCount = document.getElementById('ownedCount');
+const buyBtn      = document.getElementById('buyBtn');
+const ownedCount  = document.getElementById('ownedCount');
+const buyBtn2     = document.getElementById('buyBtn2');
+const ownedCount2 = document.getElementById('ownedCount2');
+let upgradeCount2 = 0;
 const shopToggle = document.getElementById('shopToggle');
 const shopDrawer = document.getElementById('shopDrawer');
 
@@ -30,6 +33,16 @@ buyBtn.addEventListener('click', () => {
   updateBuyBtn();
 });
 
+buyBtn2.addEventListener('click', () => {
+  if (total < 150) return;
+  total -= 150;
+  clickValue += 10;
+  upgradeCount2 += 1;
+  ownedCount2.textContent = 'Owned: ' + upgradeCount2;
+  updateCounter();
+  updateBuyBtn();
+});
+
 function updateCounter() {
   counter.textContent = '£' + total.toLocaleString('en-GB');
   counter.classList.remove('bump');
@@ -41,7 +54,8 @@ function updateCounter() {
 }
 
 function updateBuyBtn() {
-  buyBtn.disabled = total < 25;
+  buyBtn.disabled  = total < 25;
+  buyBtn2.disabled = total < 150;
 }
 
 function spawnFloatLabel(e) {
