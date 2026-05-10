@@ -9,6 +9,8 @@
 <body>
   <div class="page-wrapper">
 
+    <div class="tab-panel" id="panel-game">
+
     <header class="counter-section">
       <p class="counter-label">Total Earned</p>
       <p class="counter-value" id="counter">£0</p>
@@ -91,6 +93,26 @@
     </main>
 
     <p class="hint">Click the note to earn money!</p>
+
+    </div><!-- end panel-game -->
+
+    <div class="tab-panel hidden" id="panel-shop">
+      <h2 class="shop-heading">Shop</h2>
+      <div class="upgrade-card">
+        <div class="upgrade-icon">👆</div>
+        <div class="upgrade-info">
+          <p class="upgrade-name">Better Fingers</p>
+          <p class="upgrade-desc">+£1 per click</p>
+          <p class="owned-count" id="ownedCount">Owned: 0</p>
+        </div>
+        <button class="buy-btn" id="buyBtn" disabled>Buy — £25</button>
+      </div>
+    </div><!-- end panel-shop -->
+
+    <nav class="tab-bar">
+      <button class="tab-btn active" data-panel="panel-game">Game</button>
+      <button class="tab-btn" data-panel="panel-shop">Shop</button>
+    </nav>
 
   </div>
 

@@ -1,14 +1,38 @@
 let total = 0;
+let clickValue = 1;
+let upgradeCount = 0;
 
-const noteBtn = document.getElementById('noteBtn');
-const counter = document.getElementById('counter');
+const noteBtn    = document.getElementById('noteBtn');
+const counter    = document.getElementById('counter');
 const noteWrapper = noteBtn.closest('.note-wrapper');
+const buyBtn     = document.getElementById('buyBtn');
+const ownedCount = document.getElementById('ownedCount');
 
 noteBtn.addEventListener('click', (e) => {
-  total += 1;
+  total += clickValue;
   updateCounter();
   spawnFloatLabel(e);
   triggerNotePress();
+  updateBuyBtn();
+});
+
+buyBtn.addEventListener('click', () => {
+  if (total < 25) return;
+  total -= 25;
+  clickValue += 1;
+  upgradeCount += 1;
+  ownedCount.textContent = 'Owned: ' + upgradeCount;
+  updateCounter();
+  updateBuyBtn();
+});
+
+document.querySelectorAll('.tab-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.panel).classList.remove('hidden');
+  });
 });
 
 function updateCounter() {
@@ -21,10 +45,14 @@ function updateCounter() {
   }, { once: true });
 }
 
+function updateBuyBtn() {
+  buyBtn.disabled = total < 25;
+}
+
 function spawnFloatLabel(e) {
   const label = document.createElement('span');
   label.className = 'float-label';
-  label.textContent = '+£1';
+  label.textContent = '+£' + clickValue;
 
   const wrapRect = noteWrapper.getBoundingClientRect();
   const x = e.clientX - wrapRect.left;
