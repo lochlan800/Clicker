@@ -2,7 +2,8 @@ let total = 0;
 let clickValue = 1;
 let upgradeCount = 0;
 let perSecond = 0;
-let milestoneTriggered = false;
+let milestoneTriggered  = false;
+let milestone2Triggered = false;
 
 const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
@@ -121,14 +122,26 @@ function updateCounter() {
   }, { once: true });
   if (!milestoneTriggered && total >= 10000) {
     milestoneTriggered = true;
-    triggerMilestone();
+    upgradesL0.hidden = true;
+    upgradesL1.hidden = false;
+    showMilestone('Level 1: Market Master', 'Well done, you have made it to<br>Level 1: Market Master!');
+  }
+  if (!milestone2Triggered && total >= 5000000) {
+    milestone2Triggered = true;
+    showMilestone('Level 2: Warehouse Wizard', 'Well done, you have made it to<br>Level 2: Warehouse Wizard!');
   }
 }
 
-function triggerMilestone() {
+function showMilestone(title, msg) {
+  document.querySelector('.ms-trophy-title').textContent = title;
+  document.querySelector('.ms-trophy-msg').innerHTML = msg;
+  ['.ms-star', '.ms-wizard', '.ms-trophy'].forEach(sel => {
+    const el = document.querySelector(sel);
+    el.style.animation = 'none';
+    void el.offsetWidth;
+    el.style.animation = '';
+  });
   milestoneOverlay.hidden = false;
-  upgradesL0.hidden = true;
-  upgradesL1.hidden = false;
 }
 
 function updatePerSecond() {
