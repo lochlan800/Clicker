@@ -18,27 +18,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: 2rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.5rem;
-  padding: 0;
-  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  min-width: 340px;
-}
-
-.tab-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
   padding: 3rem 4rem;
-  width: 100%;
-}
-
-.tab-panel.hidden {
-  display: none;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
 }
 
 .counter-section {
@@ -127,104 +112,105 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* Tab bar */
-.tab-bar {
-  display: flex;
-  width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.tab-btn {
-  flex: 1;
-  background: none;
+/* Shop toggle button — fixed, bottom-right corner */
+.shop-toggle {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #111;
+  color: #fff;
   border: none;
-  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  padding: 0.65rem 1.4rem;
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  color: rgba(144, 238, 144, 0.5);
+  font-size: 0.95rem;
   cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  transition: background 0.15s ease;
 }
 
-.tab-btn:hover {
-  color: #98fb98;
+.shop-toggle:hover {
+  background: #222;
 }
 
-.tab-btn.active {
-  color: #98fb98;
-  border-bottom-color: #98fb98;
+/* Side drawer — slides in from the right */
+.shop-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 260px;
+  background: #111;
+  color: #eee;
+  padding: 2rem 1.5rem;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.6);
 }
 
-/* Shop panel */
-.shop-heading {
+.shop-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-heading {
   font-size: 0.8rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: #8fbc8f;
-  align-self: flex-start;
+  color: #555;
+  font-weight: normal;
 }
 
-.upgrade-card {
+.upgrade-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  width: 100%;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(144, 238, 144, 0.15);
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-}
-
-.upgrade-icon {
-  font-size: 2rem;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.upgrade-info {
-  flex: 1;
-  min-width: 0;
+  border-radius: 0.6rem;
+  padding: 0.85rem 1rem;
 }
 
 .upgrade-name {
-  font-size: 1rem;
-  color: #c8f0c8;
-  font-weight: bold;
-  margin-bottom: 0.15rem;
+  font-size: 0.95rem;
+  color: #ddd;
 }
 
 .upgrade-desc {
   font-size: 0.8rem;
-  color: #8fbc8f;
+  color: #98fb98;
+  margin-top: 0.1rem;
 }
 
 .owned-count {
-  font-size: 0.75rem;
-  color: rgba(144, 238, 144, 0.4);
+  font-size: 0.7rem;
+  color: #444;
   margin-top: 0.25rem;
 }
 
 .buy-btn {
   flex-shrink: 0;
-  background: #2d6a3f;
-  border: 1px solid #6abf7a;
-  border-radius: 0.5rem;
-  color: #c8f0c8;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 0.4rem;
+  color: #98fb98;
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.85rem;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 0.75rem;
   cursor: pointer;
-  transition: background 0.15s ease, opacity 0.15s ease;
   white-space: nowrap;
+  transition: background 0.15s ease, opacity 0.15s ease;
 }
 
 .buy-btn:hover:not(:disabled) {
-  background: #3a7a4a;
+  background: #2a2a2a;
 }
 
 .buy-btn:disabled {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: not-allowed;
 }

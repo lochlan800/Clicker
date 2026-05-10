@@ -7,6 +7,10 @@ const counter    = document.getElementById('counter');
 const noteWrapper = noteBtn.closest('.note-wrapper');
 const buyBtn     = document.getElementById('buyBtn');
 const ownedCount = document.getElementById('ownedCount');
+const shopToggle = document.getElementById('shopToggle');
+const shopDrawer = document.getElementById('shopDrawer');
+
+shopToggle.addEventListener('click', () => shopDrawer.classList.toggle('open'));
 
 noteBtn.addEventListener('click', (e) => {
   total += clickValue;
@@ -24,15 +28,6 @@ buyBtn.addEventListener('click', () => {
   ownedCount.textContent = 'Owned: ' + upgradeCount;
   updateCounter();
   updateBuyBtn();
-});
-
-document.querySelectorAll('.tab-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
-    btn.classList.add('active');
-    document.getElementById(btn.dataset.panel).classList.remove('hidden');
-  });
 });
 
 function updateCounter() {
