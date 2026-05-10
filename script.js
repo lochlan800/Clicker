@@ -38,8 +38,8 @@ buyBtn.addEventListener('click', () => {
 });
 
 buyBtn2.addEventListener('click', () => {
-  if (total < 150) return;
-  total -= 150;
+  if (total < 250) return;
+  total -= 250;
   clickValue += 10;
   upgradeCount2 += 1;
   ownedCount2.textContent = 'Owned: ' + upgradeCount2;
@@ -59,7 +59,7 @@ function updateCounter() {
 
 function updateBuyBtn() {
   buyBtn.disabled  = total < 25;
-  buyBtn2.disabled = total < 150;
+  buyBtn2.disabled = total < 250;
 }
 
 function spawnFloatLabel(e) {
