@@ -1,0 +1,113 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, #1a3a2a 0%, #0b1f14 100%);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: #d4edda;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 3rem 4rem;
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
+}
+
+.counter-section {
+  text-align: center;
+}
+
+.counter-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8fbc8f;
+  margin-bottom: 0.25rem;
+}
+
+.counter-value {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #98fb98;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 20px rgba(152, 251, 152, 0.4);
+  transition: transform 0.1s ease;
+}
+
+.counter-value.bump {
+  transform: scale(1.08);
+}
+
+.note-wrapper {
+  position: relative;
+}
+
+.note-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  filter: drop-shadow(0 4px 24px rgba(144, 238, 144, 0.25));
+  transition: filter 0.2s ease;
+  display: block;
+}
+
+.note-btn:hover {
+  filter: drop-shadow(0 6px 32px rgba(144, 238, 144, 0.55));
+}
+
+.note-svg {
+  width: clamp(260px, 55vw, 420px);
+  height: auto;
+  transition: transform 0.08s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(1);
+  display: block;
+}
+
+.note-btn:active .note-svg,
+.note-btn.pressing .note-svg {
+  transform: scale(0.93);
+}
+
+.note-btn:focus-visible {
+  outline: 3px solid #98fb98;
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 1;   transform: translateY(0)    scale(1);   }
+  60%  { opacity: 0.9; transform: translateY(-55px) scale(1.1); }
+  100% { opacity: 0;   transform: translateY(-90px) scale(0.9); }
+}
+
+.float-label {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #b8f5b8;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  animation: floatUp 0.9s ease-out forwards;
+  user-select: none;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: rgba(144, 238, 144, 0.45);
+  letter-spacing: 0.1em;
+}
