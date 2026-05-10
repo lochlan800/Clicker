@@ -26,6 +26,8 @@ body {
   box-shadow: 0 8px 48px rgba(0, 0, 0, 0.6);
   overflow: hidden;
   min-width: 340px;
+  max-width: 520px;
+  width: 100%;
 }
 
 /* Level progress bar */
@@ -56,9 +58,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 3rem 4rem;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
   width: 100%;
+}
+
+#panel-game {
+  gap: 1.75rem;
+  padding: 2.5rem 2rem;
 }
 
 .tab-panel.hidden {
@@ -160,29 +167,31 @@ body {
 
 /* Shop stats */
 .shop-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(144, 238, 144, 0.1);
-  border-radius: 0.6rem;
-  padding: 0.75rem 1rem;
 }
 
 .shop-stat {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(144, 238, 144, 0.12);
+  border-radius: 0.6rem;
+  padding: 0.65rem 0.9rem;
 }
 
 .shop-stat-label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #8fbc8f;
 }
 
 .shop-stat-value {
-  font-size: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: bold;
   color: #98fb98;
   font-variant-numeric: tabular-nums;
 }
@@ -198,9 +207,9 @@ body {
   flex: 1;
   background: none;
   border: none;
-  padding: 0.85rem 1rem;
+  padding: 1rem 1rem;
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   letter-spacing: 0.1em;
   color: rgba(144, 238, 144, 0.5);
   cursor: pointer;
@@ -217,10 +226,19 @@ body {
   border-bottom-color: #98fb98;
 }
 
+/* Upgrade group containers */
+#upgradesL0,
+#upgradesL1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
 /* Shop panel contents */
 .shop-heading {
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: #8fbc8f;
   align-self: flex-start;
@@ -234,12 +252,25 @@ body {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(144, 238, 144, 0.12);
+  border-left: 3px solid rgba(152, 251, 152, 0.25);
   border-radius: 0.6rem;
   padding: 0.85rem 1rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.upgrade-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(152, 251, 152, 0.65);
+}
+
+.upgrade-row-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .upgrade-name {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
+  font-weight: bold;
   color: #c8f0c8;
 }
 
@@ -257,20 +288,23 @@ body {
 
 .buy-btn {
   flex-shrink: 0;
-  background: #2d6a3f;
+  background: linear-gradient(135deg, #2d6a3f, #3a7a4a);
   border: 1px solid #6abf7a;
-  border-radius: 0.4rem;
+  border-radius: 0.5rem;
   color: #c8f0c8;
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.85rem;
-  padding: 0.45rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.55rem 1rem;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s ease, opacity 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .buy-btn:hover:not(:disabled) {
-  background: #3a7a4a;
+  background: linear-gradient(135deg, #3a7a4a, #4a8a5a);
+  box-shadow: 0 0 14px rgba(152, 251, 152, 0.45);
 }
 
 .buy-btn:disabled {
@@ -394,8 +428,20 @@ body {
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(144, 238, 144, 0.12);
+  border-left: 3px solid rgba(255, 215, 0, 0.4);
   border-radius: 0.6rem;
   padding: 0.85rem 1rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.spin-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-left-color: rgba(255, 215, 0, 0.85);
+}
+
+.spin-row-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .spin-row-info .upgrade-name {
