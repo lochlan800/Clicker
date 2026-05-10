@@ -5,16 +5,22 @@ let perSecond = 0;
 
 const noteBtn      = document.getElementById('noteBtn');
 const perSecondEl  = document.getElementById('perSecond');
-const counter    = document.getElementById('counter');
-const noteWrapper = noteBtn.closest('.note-wrapper');
-const buyBtn      = document.getElementById('buyBtn');
-const ownedCount  = document.getElementById('ownedCount');
-const buyBtn2     = document.getElementById('buyBtn2');
-const ownedCount2 = document.getElementById('ownedCount2');
-let upgradeCount2 = 0;
-const buyBtn3     = document.getElementById('buyBtn3');
-const ownedCount3 = document.getElementById('ownedCount3');
-let upgradeCount3 = 0;
+const counter      = document.getElementById('counter');
+const noteWrapper  = noteBtn.closest('.note-wrapper');
+const buyBtn       = document.getElementById('buyBtn');
+const ownedCount   = document.getElementById('ownedCount');
+const buyBtn2      = document.getElementById('buyBtn2');
+const ownedCount2  = document.getElementById('ownedCount2');
+let upgradeCount2  = 0;
+const buyBtn3      = document.getElementById('buyBtn3');
+const ownedCount3  = document.getElementById('ownedCount3');
+let upgradeCount3  = 0;
+const buyBtn4      = document.getElementById('buyBtn4');
+const ownedCount4  = document.getElementById('ownedCount4');
+let upgradeCount4  = 0;
+const statMPC      = document.getElementById('statMPC');
+const statMPS      = document.getElementById('statMPS');
+
 document.querySelectorAll('.tab-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -32,6 +38,17 @@ noteBtn.addEventListener('click', (e) => {
   updateBuyBtn();
 });
 
+buyBtn4.addEventListener('click', () => {
+  if (total < 100) return;
+  total -= 100;
+  perSecond += 1;
+  upgradeCount4 += 1;
+  ownedCount4.textContent = 'Owned: ' + upgradeCount4;
+  updateCounter();
+  updatePerSecond();
+  updateBuyBtn();
+});
+
 buyBtn.addEventListener('click', () => {
   if (total < 25) return;
   total -= 25;
@@ -39,6 +56,7 @@ buyBtn.addEventListener('click', () => {
   upgradeCount += 1;
   ownedCount.textContent = 'Owned: ' + upgradeCount;
   updateCounter();
+  updateShopStats();
   updateBuyBtn();
 });
 
@@ -49,6 +67,7 @@ buyBtn2.addEventListener('click', () => {
   upgradeCount2 += 1;
   ownedCount2.textContent = 'Owned: ' + upgradeCount2;
   updateCounter();
+  updateShopStats();
   updateBuyBtn();
 });
 
@@ -59,8 +78,16 @@ buyBtn3.addEventListener('click', () => {
   upgradeCount3 += 1;
   ownedCount3.textContent = 'Owned: ' + upgradeCount3;
   updateCounter();
+  updateShopStats();
   updateBuyBtn();
 });
+
+setInterval(() => {
+  if (perSecond === 0) return;
+  total += perSecond;
+  updateCounter();
+  updateBuyBtn();
+}, 1000);
 
 function updateCounter() {
   counter.textContent = '£' + total.toLocaleString('en-GB');
@@ -74,12 +101,18 @@ function updateCounter() {
 
 function updatePerSecond() {
   perSecondEl.textContent = '£' + perSecond.toLocaleString('en-GB') + ' / sec';
+  statMPS.textContent = '£' + perSecond.toLocaleString('en-GB');
+}
+
+function updateShopStats() {
+  statMPC.textContent = '£' + clickValue.toLocaleString('en-GB');
 }
 
 function updateBuyBtn() {
   buyBtn.disabled  = total < 25;
   buyBtn2.disabled = total < 250;
   buyBtn3.disabled = total < 5000;
+  buyBtn4.disabled = total < 100;
 }
 
 function spawnFloatLabel(e) {
