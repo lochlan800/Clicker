@@ -5,7 +5,7 @@ let perSecond = 0;
 let milestoneTriggered  = false;
 let milestone2Triggered = false;
 let level1Target = 750000;
-let level2Target = 100000000;
+let level2Target = 1000000000;
 let spinCost = 20000;
 let isSpinning = false;
 let pendingRewardAmount = 0;
@@ -316,26 +316,26 @@ buyBtn8.addEventListener('click', () => {
 
 // Level 2 buy handlers
 buyBtn9.addEventListener('click', () => {
-  if (total < 500000) return;
-  total -= 500000; perSecond += 500; upgradeCount9++;
+  if (total < 5000000) return;
+  total -= 5000000; perSecond += 500; upgradeCount9++;
   ownedCount9.textContent = 'Owned: ' + upgradeCount9;
   updateCounter(); updatePerSecond(); updateBuyBtn();
 });
 buyBtn10.addEventListener('click', () => {
-  if (total < 2000000) return;
-  total -= 2000000; clickValue += 5000; upgradeCount10++;
+  if (total < 25000000) return;
+  total -= 25000000; clickValue += 5000; upgradeCount10++;
   ownedCount10.textContent = 'Owned: ' + upgradeCount10;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
 buyBtn11.addEventListener('click', () => {
-  if (total < 10000000) return;
-  total -= 10000000; perSecond += 5000; upgradeCount11++;
+  if (total < 100000000) return;
+  total -= 100000000; perSecond += 5000; upgradeCount11++;
   ownedCount11.textContent = 'Owned: ' + upgradeCount11;
   updateCounter(); updatePerSecond(); updateBuyBtn();
 });
 buyBtn12.addEventListener('click', () => {
-  if (total < 50000000) return;
-  total -= 50000000; clickValue += 50000; upgradeCount12++;
+  if (total < 500000000) return;
+  total -= 500000000; clickValue += 50000; upgradeCount12++;
   ownedCount12.textContent = 'Owned: ' + upgradeCount12;
   updateCounter(); updateShopStats(); updateBuyBtn();
 });
@@ -358,6 +358,7 @@ function updateCounter() {
   updateProgress();
   if (!milestoneTriggered && total >= level1Target) {
     milestoneTriggered = true;
+    upgradesL0.hidden = true;
     upgradesL1.hidden = false;
     spinCost = 500000;
     spinBtn.textContent = '£500,000';
@@ -366,7 +367,10 @@ function updateCounter() {
   }
   if (!milestone2Triggered && total >= level2Target) {
     milestone2Triggered = true;
+    upgradesL1.hidden = true;
     upgradesL2.hidden = false;
+    spinCost = 5000000;
+    spinBtn.textContent = '£5,000,000';
     pendingRewardAmount = Math.floor(level2Target / 4);
     showMilestone('Level 2: Warehouse Wizard', 'Well done, you have made it to<br>Level 2: Warehouse Wizard!');
   }
@@ -445,10 +449,10 @@ function updateBuyBtn() {
   buyBtn6.disabled = total < 30000;
   buyBtn7.disabled = total < 100000;
   buyBtn8.disabled  = total < 500000;
-  buyBtn9.disabled  = total < 500000;
-  buyBtn10.disabled = total < 2000000;
-  buyBtn11.disabled = total < 10000000;
-  buyBtn12.disabled = total < 50000000;
+  buyBtn9.disabled  = total < 5000000;
+  buyBtn10.disabled = total < 25000000;
+  buyBtn11.disabled = total < 100000000;
+  buyBtn12.disabled = total < 500000000;
   spinBtn.disabled  = total < spinCost || isSpinning;
 }
 
