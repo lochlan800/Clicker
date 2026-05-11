@@ -228,11 +228,18 @@ body {
 
 /* Upgrade group containers */
 #upgradesL0,
-#upgradesL1 {
+#upgradesL1,
+#upgradesL2 {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   width: 100%;
+}
+
+#upgradesL0[hidden],
+#upgradesL1[hidden],
+#upgradesL2[hidden] {
+  display: none;
 }
 
 /* Shop panel contents */
